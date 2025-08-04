@@ -64,7 +64,7 @@ This guide outlines my practical approach to the Software Testing Life Cycle (ST
 
 ---
 
-## 📂 Technical Structure
+## 📂 Project Structure
 
 ```
 project-root/
@@ -92,14 +92,9 @@ project-root/
 
 * Cypress, Selenium WebDriver, Postman, Newman
 * Jenkins, GitHub Actions, Docker
-* Allure Reports, automatic logging, environment configs
-* Android emulators, OWASP Top 10, accessibility testing
+* Allure Reports, automatic logging, `.env` configuration per environment
+* Android emulators, OWASP Top 10 coverage, accessibility testing
 
 ---
 
 *This guide reflects my hands-on QA experience applied to scalable educational platforms. It is adaptable to various systems and demonstrates measurable gains in both productivity and quality across the entire test process.*
-
-More than a fixed template, this guide reflects a QA approach that values clarity, continuous improvement, and the ability to learn quickly in the face of new technical challenges.
-
-
-
