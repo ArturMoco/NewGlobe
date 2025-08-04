@@ -31,8 +31,10 @@ This guide outlines my practical approach to the Software Testing Life Cycle (ST
 ### 3. Test Case Design
 
 * Writing of structured scenarios based on defined criteria, covering positive, negative, and exploratory tests.
+* flow validation, usability, accessibility, and sync behavior.
 * Clear organization by functionality and risk-based prioritization (impact × likelihood).
-* Use of complementary tools to speed up repetitive tasks and improve consistency (\~25% time savings).
+* Use of complementary tools to speed up repetitive tasks and improve consistency (\~25% time savings).  
+* Inclusion of basic security validation patterns aligned with OWASP Top 10 risks, such as input validation and authentication checks.
 
 ### 4. Environment Setup
 
@@ -98,3 +100,5 @@ project-root/
 ---
 
 *This guide reflects my hands-on QA experience applied to scalable educational platforms. It is adaptable to various systems and demonstrates measurable gains in both productivity and quality across the entire test process.*
+
+*More than a fixed template, this guide reflects a QA approach that values clarity, continuous improvement, and the ability to learn quickly in the face of new technical challenges.*
