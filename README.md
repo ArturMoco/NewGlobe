@@ -44,7 +44,7 @@ This guide outlines my practical approach to the Software Testing Life Cycle (ST
 
 ### 5. Test Execution
 
-* Manual testing: flow validation, usability, accessibility, and sync behavior.
+* Manual testing
 * Automated testing:
 
   * Cypress: E2E and regression coverage.
