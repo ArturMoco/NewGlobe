@@ -1,4 +1,4 @@
-# 🧪 Professional Test Guide — STLC | NewGlobe Interview
+# 🧪 Professional Test Guide — STLC | NewGlobe 
 
 **Author:** Artur Felipe Albuquerque Portela  
 **Position:** QA Engineer Candidate  
