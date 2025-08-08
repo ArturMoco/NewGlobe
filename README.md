@@ -1,7 +1,7 @@
 # 🧪 Professional Test Guide — STLC | NewGlobe 
 
 **Author:** Artur Felipe Albuquerque Portela  
-**Position:** QA Engineer Candidate  
+**Position:** QA Engineer 
 **Company:** NewGlobe (Remote - Amsterdam Team)  
 **GitHub:** [github.com/ArturMoco](https://github.com/ArturMoco)
 
