@@ -144,4 +144,4 @@ This solution combines **QA best practices** with **GPT-assisted automation** to
 - **Reduce risk** of regressions and production incidents.  
 - **Increase visibility** of quality status for the entire team.
 
-You, as the **QA Lead**, remain the final decision-maker, ensuring automation **enhances but never replaces** human judgment.
+**Me**, as the **QA Lead**, remain the final decision-maker, ensuring automation **enhances but never replaces** human judgment.
