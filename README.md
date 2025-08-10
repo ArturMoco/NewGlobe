@@ -1,104 +1,147 @@
-# 🧪 Professional Test Guide — STLC | NewGlobe 
-
-**Author:** Artur Felipe Albuquerque Portela  
-**Position:** QA Engineer  
-**Company:** NewGlobe (Remote - Amsterdam Team)  
-**GitHub:** [github.com/ArturMoco](https://github.com/ArturMoco)
+# Testing & Monitoring Strategy – Feature Toggle API
+*(with GPT-assisted agents and .NET code examples)*
 
 ---
 
-## ✅ Overview
+## 1. Context & Goal
 
-This guide outlines my practical approach to the Software Testing Life Cycle (STLC), based on real-world experience with educational platforms and scalable software products. It reflects the quality standards expected by NewGlobe, with a focus on traceability, efficiency, and continuous improvement.
+The **Feature Toggle API** is used by almost all services and applications within the organization, acting as a **single point of failure**.  
+Any downtime or incompatible change can impact critical production services.
 
----
+This strategy ensures:
 
-## 🔄 Software Testing Life Cycle (STLC)
-
-### 1. Requirement Analysis
-
-* Review of user stories, business rules, and critical mobile/web flows.
-* Identification of risks: synchronization, offline mode, security, and accessibility.
-* Tools used: Jira, Confluence, GitHub Projects.
-* Occasional support from language-based tools to accelerate technical interpretation (\~20% average time saved).
-
-### 2. Test Planning
-
-* Strategic planning to cover functional, regression, integration, security, and scalability testing.
-* Initial structure of reusable plans aided by supporting tools, resulting in \~30% time reduction during preparation.
-* Environment segmentation, CI/CD integration, and monitoring defined early.
-
-### 3. Test Case Design
-
-* Writing of structured scenarios based on defined criteria, covering positive, negative, and exploratory tests.
-* flow validation, usability, accessibility, and sync behavior.
-* Clear organization by functionality and risk-based prioritization (impact × likelihood).
-* Use of complementary tools to speed up repetitive tasks and improve consistency (\~25% time savings).  
-* Inclusion of basic security validation patterns aligned with OWASP Top 10 risks, such as input validation and authentication checks.
-
-### 4. Environment Setup
-
-* Environment separation (QA, Dev, Staging) with flexible configuration using `.env` files.
-* Support for both local and remote execution, leveraging Docker for realistic simulations.
-* CI/CD pipelines via Jenkins and GitHub Actions.
-
-### 5. Test Execution
-
-* Manual testing
-* Automated testing:
-
-  * Cypress: E2E and regression coverage.
-  * Selenium WebDriver: multi-browser and cross-device testing.
-  * Postman/Newman: REST API validation with mocked data.
-* Occasional use of technical tools to support debugging and data generation, reducing fix times by up to 30%.
-
-### 6. Monitoring and Troubleshooting
-
-* Continuous tracking of errors and failures during test runs.
-* Cross-validation with logs, error messages, and alerting tools.
-* Support for the development team in investigating environment-specific issues.
-
-### 7. Test Closure and Reporting
-
-* Final evaluation based on predefined KPIs (time, success rate, coverage).
-* Organized documentation for release decisions and evidence handoff.
-* Occasional writing support to improve structure and clarity of final reports (\~15–20% effort reduction).
+- **Safety and predictability** in releases.  
+- **Prevention of regressions** and breaking changes for consumers.  
+- **Agility** through GPT-assisted specialized agents.  
+- **Clear communication** with the entire development team, even for those who are not QA specialists.
 
 ---
 
-## 📂 Project Structure
+## 2. Testing Pyramid + GPT Agents
 
-```
-project-root/
-├── cypress/
-├── selenium/
-├── api/
-├── evidencias/
-├── screenshots/
-├── videos/
-├── logs/
-├── reports/
-├── docker/
-├── .env.qa
-├── jenkinsfile
-├── README.md
-├── test-plan.md
-├── test-cases.md
-├── final-report.md
-└── package.json
+The strategy follows the testing pyramid, enhanced by **GPT agents**, each with a specific role to speed up tasks and keep results consistent.
+
+| Test Layer         | Objective                                | Tools                             | Stage / Trigger                           | GPT Agent (Role)                                                              | Agent Output                       | Best Practices / Sources                 | Approval Criteria                        |
+| ------------------ | ---------------------------------------- | --------------------------------- | ------------------------------------------ | ------------------------------------------------------------------------------ | ----------------------------------- | ---------------------------------------- | ----------------------------------------- |
+| **Unit**           | Validate domain rules and type/value     | xUnit (.NET), FluentAssertions    | Build (CI) – Push/PR                       | **Test Generator** — create stubs for unit tests                               | C# unit test stubs                  | Official .NET documentation              | Minimum coverage met, all green           |
+| **Integration**    | Validate real endpoints and authentication| HttpClient (.NET), Postman+Newman | Build (CI) – Post-unit                     | **Test Generator** — create stubs for integration tests                        | C# stubs / Postman collection       | Framework official docs                  | All integration tests passing              |
+| **Contract (CDC)** | Prevent breaking changes for consumers   | OpenAPI Diff, Pact                 | PR Validation – openapi.json change        | **Contract Guardian** — validate changes and generate Pact tests               | Risk report + Pact JSON             | Pact.io, OpenAPI.org                      | No unmitigated breaking changes            |
+| **E2E Critical**   | Validate UI↔API in critical flows        | Playwright .NET / Selenium C#      | Staging – deploy + seeds                   | **E2E Stability Consultant** — suggest sync/locator improvements               | Adjustment recommendations          | Playwright/Selenium official docs         | Flakiness < defined target                 |
+| **Performance**    | Ensure latency/throughput targets        | k6                                 | Staging – Quality – Post-E2E               | **Report Analyst** — summarize results                                         | Executive summary + recommendations | k6.io                                    | P95/error targets met                      |
+| **Security**       | Cover OWASP Top 10                       | OWASP ZAP                          | Staging – Quality – Post-E2E               | **Report Analyst** — prioritize security risks                                 | Executive summary + priorities      | OWASP.org                                | No critical findings                       |
+| **Smoke Prod**     | Post-deploy health check                 | HttpClient (.NET)                  | Production (Canary) – Post-deploy           | *(No agent)*                                                                   | —                                   | —                                        | Smoke tests green                          |
+| **Monitoring**     | Detect & react to incidents              | Healthchecks, Logs, APM            | Production (Run) – alert                   | **Monitoring Analyst** — interpret logs/metrics and suggest actions            | Initial action plan                  | Internal runbooks                        | MTTR within target                         |
+
+---
+
+## 3. Code Examples
+
+**Unit – Type/value validation**
+```csharp
+[Fact]
+public void Feature_DefaultValue_ShouldMatchType()
+{
+    var feature = new Feature { Key = "ftone", Type = "Boolean", DefaultValue = false };
+    Assert.IsType<bool>(feature.DefaultValue);
+}
 ```
 
+**Integration – Authenticated API call**
+```csharp
+[Fact]
+public async Task Get_Project_Should_Return_Success()
+{
+    using var app = new TestApiFactory();
+    var client = app.CreateClient();
+    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+    var res = await client.GetAsync("/projects/c44f0476-090a-11ee-be56-0242ac120002");
+    res.EnsureSuccessStatusCode();
+}
+```
+
+**Contract – Pact validation**
+```csharp
+[Fact]
+public void Provider_Should_Match_Consumer_Contract()
+{
+    var pactVerifier = new PactVerifier("FeatureToggleAPI", "ConsumerService");
+    pactVerifier.ServiceProvider("FeatureToggleAPI", new Uri("https://api.test"))
+                .HonoursPactWith("ConsumerService")
+                .PactUri("consumer-pact.json")
+                .Verify();
+}
+```
+
+**E2E – Critical flow with Playwright .NET**
+```csharp
+[Fact]
+public async Task Login_And_Update_Feature()
+{
+    using var pw = await Playwright.CreateAsync();
+    var browser = await pw.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = false });
+    var context = await browser.NewContextAsync(new BrowserNewContextOptions { StorageStatePath = "auth.json" });
+    var page = await context.NewPageAsync();
+    await page.GotoAsync("https://app.test/projects");
+    await page.Locator("text=Test Master").ClickAsync();
+    await page.Locator("text=API TEST").CheckAsync();
+}
+```
+
 ---
 
-## 💻 Technologies & Tools
+## 4. Compatibility & Risk Reduction
 
-* Cypress, Selenium WebDriver, Postman, Newman
-* Jenkins, GitHub Actions, Docker
-* Allure Reports, automatic logging, `.env` configuration per environment
-* Android emulators, OWASP Top 10 coverage, accessibility testing
+- **API versioning** (`/v1`, `/v2`) to avoid breaking existing consumers.  
+- **Automated contract validation** with OpenAPI Diff + Pact.  
+- **Canary releases** to monitor production impact before 100% rollout.  
+- **Post-deploy smoke tests** to validate critical endpoints.
 
 ---
 
-*This guide reflects my hands-on QA experience applied to scalable educational platforms. It is adaptable to various systems and demonstrates measurable gains in both productivity and quality across the entire test process.*
+## 5. State Initialization
 
-*More than a fixed template, this guide reflects a QA approach that values clarity, continuous improvement, and the ability to learn quickly in the face of new technical challenges.*
+- **Idempotent seeds** for consistent test data in staging.  
+- **Execution isolation** via `X-Test-Run` headers and suffixed names.  
+- **Safe cleanup** only for test-created data.
+
+---
+
+## 6. Post-Deploy & Continuous Monitoring
+
+- Healthchecks every 5 minutes on `/projects` and `/features/status`.  
+- Alerts for:
+  - P95 latency > 500ms.
+  - HTTP 4xx/5xx.
+  - Contract breakage (missing required fields).
+- **Runbooks** for quick investigation and canary rollback if needed.
+
+---
+
+## 7. What to Avoid
+
+- **Excessive E2E** – keep only critical flows.  
+- **Destructive tests** in production.  
+- **Sensitive data** in non-production environments.  
+- **Over-mocking** that hides real integration issues.
+
+---
+
+## 8. Pipeline Flow with GPT Agents
+
+1. **Pull Request** → Contract Guardian (validate OpenAPI changes, suggest Pact tests).  
+2. **CI Build** → Test Generator (stubs for Unit/Integration).  
+3. **Staging** → Seed Planner (generate test data for E2E).  
+4. **Post-Tests** → Report Analyst (Performance + Security).  
+5. **Production** → Monitoring Analyst (interpret alerts, suggest actions).
+
+---
+
+## Executive Summary
+
+This solution combines **QA best practices** with **GPT-assisted automation** to:
+
+- **Accelerate test creation** and maintain standardization.  
+- **Reduce risk** of regressions and production incidents.  
+- **Increase visibility** of quality status for the entire team.
+
+You, as the **QA Lead**, remain the final decision-maker, ensuring automation **enhances but never replaces** human judgment.
