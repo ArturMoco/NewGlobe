@@ -1,0 +1,27 @@
+{
+  "breakingChanges": [
+    {
+      "path": "/v1/features/{key}",
+      "method": "get",
+      "change": "type-changed",
+      "from": "value:boolean",
+      "to": "value:object(status:boolean,source:string)",
+      "impact": "High",
+      "why": "Consumers expect boolean; object will break deserialization."
+    }
+  ],
+  "nonBreakingChanges": [
+    {
+      "path": "/v1/features/{key}",
+      "method": "get",
+      "change": "added-property",
+      "property": "value.source",
+      "note": "New optional property."
+    }
+  ],
+  "summary": {
+    "breakingCount": 1,
+    "nonBreakingCount": 1,
+    "risk": "High"
+  }
+}

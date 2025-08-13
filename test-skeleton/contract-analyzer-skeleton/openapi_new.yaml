@@ -1,0 +1,29 @@
+openapi: 3.0.3
+info:
+  title: Feature Toggle API
+  version: 1.1.0
+paths:
+  /v1/features/{key}:
+    get:
+      summary: Get feature by key
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [ key, value ]
+                properties:
+                  key: { type: string }
+                  value:
+                    type: object
+                    required: [ status ]
+                    properties:
+                      status: { type: boolean }
+                      source: { type: string, enum: [default, variation] }

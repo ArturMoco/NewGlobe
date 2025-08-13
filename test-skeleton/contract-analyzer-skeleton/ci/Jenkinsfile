@@ -1,0 +1,27 @@
+pipeline {
+  agent any
+  stages {
+    stage('OpenAPI Diff') {
+      steps {
+        sh 'oasdiff breaking ./openapi_old.yaml ./openapi_new.yaml --format json > ./ContractAnalyzer/oasdiff_output.json'
+      }
+    }
+    stage('Build & Analyze (.NET)') {
+      steps {
+        sh 'dotnet build ./ContractAnalyzer/ContractAnalyzer.csproj -c Release'
+        sh 'dotnet run --project ./ContractAnalyzer/'
+      }
+    }
+    stage('Publish Report') {
+      when { always() }
+      steps {
+        archiveArtifacts artifacts: 'ContractAnalyzer/contract_report.md', allowEmptyArchive: true
+      }
+    }
+  }
+  post {
+    failure {
+      echo '🚨 High-risk breaking change without mitigation — blocking merge.'
+    }
+  }
+}
