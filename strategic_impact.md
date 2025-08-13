@@ -2,68 +2,68 @@
 
 ## 1. Operational and Human Impact
 
-This strategy goes beyond expanding test coverage — it redefines the team’s operating model.  
-It replaces a reactive “firefighting” approach with a proactive, predictable, and sustainable delivery process.
+This strategy is not only about running more tests — it changes how the team works every day.  
+It replaces a reactive approach, where problems are fixed after they appear, with a proactive process that prevents issues before they happen.
 
-### Fewer crises, more planned delivery  
-- In conventional workflows, critical changes often reach production, triggering emergency interventions.  
-- With this strategy, such changes are detected prior to merging, preventing costly production incidents.  
-- Developers remain focused on delivering planned features rather than resolving urgent defects.
+### Fewer crises, more planned work  
+- In the traditional approach, critical changes sometimes reach production, causing urgent fixes.  
+- Here, these changes are detected before merging, avoiding production problems.  
+- Developers can focus on planned features instead of emergency fixes.
 
-### Significant reduction in rework  
-- Early defect detection enables faster, simpler fixes.  
-- The traditional model often requires code rewrites after deployment, increasing both time and cost.  
-- Here, code is rarely revisited unnecessarily, ensuring efficient delivery cycles.
+### Less rework  
+- Finding problems early makes them faster and easier to fix.  
+- In the traditional model, code often needs to be rewritten after deployment, which takes more time.  
+- With this strategy, the same code rarely needs to be changed twice.
 
-### Intelligent automation of repetitive tasks  
-- Unit, integration, and contract tests are generated or refined with AI assistance.  
-- Teams are freed from low-value, repetitive work and can focus on strategic problem-solving and innovation.
+### Automation of repetitive tasks  
+- Unit, integration, and contract tests are created or improved with AI assistance.  
+- This reduces manual work and allows the team to focus on more valuable tasks.
 
-### Accelerated and actionable feedback  
-- Automated pipelines deliver reliable feedback within minutes of a Pull Request.  
-- Issues are resolved while the context is fresh, reducing time-to-fix and cognitive overhead.
+### Faster feedback  
+- Automated pipelines give feedback within minutes after a Pull Request.  
+- Problems are fixed while the code is still fresh in the developer’s mind.
 
-### Improved team well-being and retention  
-- Reduced production crises mean fewer late-night interventions and urgent all-hands meetings.  
-- Predictable processes enhance job satisfaction, helping to retain skilled professionals.
+### Better work environment  
+- Fewer production problems mean fewer urgent calls and late-night work.  
+- Stable processes improve team satisfaction and help keep good professionals.
 
 ---
 
 ## 2. Efficiency and Cost-Effectiveness (Relative Metrics)
 
-While precise financial figures depend on internal company data, the efficiency improvements can be objectively measured and replicated across organizations.
+The exact financial results depend on the company’s numbers, but the efficiency gains can be measured and repeated in any organization.
 
-| Area | Conventional Approach | This Strategy | Relative Improvement |
-|------|----------------------|---------------|----------------------|
-| Critical incident resolution time (MTTR) | Baseline | Reduced by up to 80% | Faster recovery, minimized downtime |
-| Bug rework effort | Baseline | Reduced by up to 90% | Pre-deployment fixes are up to 9× cheaper (IBM study) |
-| Team productivity | Baseline | +~10 hours/month per team member | Time reallocated to high-value initiatives |
+| Area | Traditional Approach | This Strategy | Improvement |
+|------|----------------------|---------------|-------------|
+| Critical incident resolution time (MTTR) | Baseline | Reduced by up to 80% | Faster recovery, less downtime |
+| Bug rework effort | Baseline | Reduced by up to 90% | Fixes before production are up to 9× cheaper (IBM study) |
+| Team productivity | Baseline | +~10 hours/month per person | More time for important work |
 
-**Key drivers of these gains:**  
-- Earlier defect detection in the delivery pipeline.  
-- Automation reducing manual QA workload.  
-- Embedded monitoring identifying issues before they impact end users.
+**Main reasons for these results:**  
+- Finding problems earlier in the delivery process.  
+- Automation reduces manual testing work.  
+- Monitoring finds issues before users are affected.
 
 ---
 
-## 3. Impact by Time Horizon
+## 3. Impact Over Time
 
 ### Short Term (0–3 months)
-- Immediate reduction in rework and production issues.  
-- Productivity uplift from automated testing and contract validation in PRs.  
-- Faster, more actionable feedback loops for developers.
+- Immediate drop in rework and production incidents.  
+- Productivity boost from automated tests and contract checks in PRs.  
+- Faster feedback for developers.
 
 ### Medium Term (3–12 months)
-- Greater predictability in release schedules.  
-- Substantial drop in crisis-driven work and hotfixes.  
-- Improved cross-team collaboration and morale.
+- More predictable release schedules.  
+- Fewer urgent fixes and crisis situations.  
+- Better teamwork and higher motivation.
 
 ### Long Term (12+ months)
-- Established culture of preventive quality assurance.  
-- Scalable, repeatable testing framework supporting multiple products.  
-- Ongoing reduction in operational costs and staff turnover.  
-- Stronger stakeholder confidence in product stability and delivery consistency.
+- Strong culture of preventing problems before they happen.  
+- Scalable testing process for multiple products.  
+- Lower operational costs and reduced staff turnover.  
+- More trust from stakeholders in product stability.
 
 ---
 
-**Author:** Artur Felipe Albuquerque Portela – QA Engineer / SDET
+**Author:** Artur Felipe Albuquerque Portela – QA Engineer / SDE
